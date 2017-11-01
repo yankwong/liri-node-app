@@ -1,0 +1,25 @@
+{
+  "name": "ytk-liri",
+  "version": "1.0.0",
+  "description": "toy app to play with Node.js",
+  "main": "liri.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yankwong/liri-node-app.git"
+  },
+  "author": "Yan Kwong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yankwong/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/yankwong/liri-node-app#readme",
+  "dependencies": {
+    "moment": "^2.19.1",
+    "node-spotify-api": "^1.0.7",
+    "request": "^2.83.0",
+    "twitter": "^1.7.1"
+  }
+}
