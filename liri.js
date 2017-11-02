@@ -1,5 +1,7 @@
-// write the code you need to grab the data from keys.js. Then store the keys in a variable.
-
+// TODO: write api keys in comments (bootcampspot comments), gitignore keys
+// TODO: break away related functions into seperate files
+// TODO: spotify default, make sure it's the default they mentioned
+// TODO: QA each modules
 var fs = require("fs");
 var request = require('request');
 var Spotify = require('node-spotify-api');
@@ -7,12 +9,14 @@ var Twitter = require('twitter');
 var moment = require('moment');
 
 var keys = require('./keys');
+var imdb = require('./imdb');
+
 var twitterKey = keys.twitter;
 var spotifyKey = keys.spotify;
 var omdbKey = keys.omdb;
 
 var action = process.argv[2];
-var detail = process.argv[3] || -1;
+var detail = process.argv[3];
 // request to OMDB:  http://www.omdbapi.com
 
 
@@ -67,12 +71,12 @@ function handleRandom() {
 // spotify-this-song
 function handleSpotify() {
   var spotify = new Spotify(spotifyKey);
-  /*
-    * Artist(s)
-    * The song's name
-    * A preview link of the song from Spotify
-    * The album that the song is from
-  */
+
+  console.log('typeof detail', typeof detail);
+  if (typeof detail == 'undefined' || detail.trim() == '') {
+    detail = 'The Sign';
+  }
+
   spotify.search({ type: 'track', query: detail.trim(), limit : 1 }, function(err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
@@ -81,15 +85,21 @@ function handleSpotify() {
       var albums = data.tracks.items;
 
       albums.forEach(function(album) {
-        var artists = album.album.artists;
-        var previewURL = album.preview_url;
-        var albumName = album.album.name;  
+        var artists = album.album.artists,
+            previewURL = album.preview_url,
+            albumName = album.album.name,
+            artistNames = [];
 
-        //console.log('--', artists, previewURL, albumName);
-        //console.log(album);
-        //console.log(artists);
-        //console.log(previewURL);
-        //console.log(albumName);
+        artists.forEach(function(artist) {
+          artistNames.push(artist.name);
+        });
+
+        console.log('---- Song Info ----');
+        console.log('song name: ' + detail.trim());
+        console.log('artist(s): ', artistNames.join(','));
+        console.log('album name: ' + albumName);
+        console.log('preview url:\n' + previewURL);
+        console.log('--------');
       });
 
       if (albums.length == 0) {
@@ -115,6 +125,12 @@ function actionHandler(override) {
   // using fs, perform one random action
   else if (override === 'do-what-it-says') {
     handleRandom();
+  }
+  else if (override === 'movie-this') {
+    if (typeof detail === 'undefined' || detail.trim() == '') {
+      detail = 'Mr. Nobody';
+    }
+    imdb.handle(omdbKey.key, detail);
   }
   else {
     console.log('Sorry, unknown action', action);
