@@ -1,5 +1,6 @@
 
 var request = require('request');
+var utils   = require('./utils');
 
 function makeURL(key, title) {
   console.log('wahast', 'http://www.omdbapi.com/?apikey=' + key + '&t=' + encodeURI(title) + '&type=movie');
@@ -36,24 +37,29 @@ function handle(key, title) {
           countries = body["Country"],
           language = body["Language"],
           plot = body["Plot"],
-          actors = body["Actors"];
+          actors = body["Actors"],
+          printResult = '';
 
-      console.log('---- Movie Info ----');
-      console.log('name: ' + title);
-      console.log('year: ' + year);
-      console.log('omdb rating: ' + rating.imdb);
-      console.log('rotten tomato rating: ' + rating.rt);
-      console.log('countries: ' + countries);
-      console.log('language: ' + language);
-      console.log('plot: ' + plot);
-      console.log('actors: ' + actors);
+      printResult += '---- Movie Info ----\n';
+      printResult += 'name: ' + title + '\n';
+      printResult += 'year: ' + year + '\n';
+      printResult += 'imdb rating: ' + rating.imdb + '\n';
+      printResult += 'rotten tomato rating: ' + rating.rt + '\n';
+      printResult += 'countries: ' + countries + '\n';
+      printResult += 'language: ' + language + '\n';
+      printResult += 'plot: ' + plot + '\n';
+      printResult += 'actors: ' + actors + '\n';
+      
+      console.log(printResult);
+      utils.log(printResult);
     }
     else {
       console.log('error:', error);
+      utils.log('error:', error);
     }
   });
 }
 
 module.exports = {
-  handle: handle  
+  handle: handle 
 }

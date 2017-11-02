@@ -1,2 +1,6 @@
 my-tweets
 spotify-this-song,"I Want it That Way"
+spotify-this-song,"I dreamed a dream"
+movie-this,"Aliens"
+movie-this,"Prometheus"
+movie-this,"The theory of everything"
