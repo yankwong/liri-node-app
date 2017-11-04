@@ -1,5 +1,4 @@
 // TODO: write api keys in comments (bootcampspot comments), gitignore keys
-// TODO: break away related functions into seperate files
 // TODO: spotify default, make sure it's the default they mentioned
 // TODO: QA each modules
 var fs = require("fs");
@@ -14,6 +13,8 @@ var twitterKey  = keys.twitter;
 var spotifyKey  = keys.spotify;
 var omdbKey     = keys.omdb;
 
+var isDefault = false;
+
 var action = process.argv[2];
 var detail = process.argv[3];
 
@@ -25,7 +26,6 @@ function isUndefined(item) {
   return typeof (item) === 'undefined';
 }
 
-
 function handleRandom() {
   fs.readFile("random.txt", "utf8", function(err, data) {
     if (!err) {
@@ -34,7 +34,7 @@ function handleRandom() {
 
       var actionArr = actions[actionID].trim().split(',');
 
-      utils.log('> do-what-it-says\n');
+      utils.log('>> do-what-it-says\n');
 
       if (actionArr.length > 1) {
         actionHandler(actionArr[0], actionArr[1]);
@@ -59,14 +59,15 @@ function actionHandler(override, info) {
   }
   
   if (override === 'my-tweets') {
-    utils.log('running ' + override );
+    utils.log('>> running ' + override );
     tweets.handle(twitterKey);
   }
   else if (override === 'spotify-this-song') {
     if (isUndefined(info) || info.trim() == '') {
-      info = 'The Sign';
+      info = 'The Sign Ace of Base';
+      // isDefault = true;
     }
-    utils.log('running ' + override +' ' + info + '\n');
+    utils.log('>> running ' + override +' ' + info + '\n');
     songs.handle(spotifyKey, info);
   }
   // using fs, perform one random action
@@ -77,7 +78,7 @@ function actionHandler(override, info) {
     if (isUndefined(info) || info.trim() == '') {
       info = 'Mr. Nobody';
     }
-    utils.log('running ' + override +' ' + info + '\n');
+    utils.log('>> running ' + override +' ' + info + '\n');
     imdb.handle(omdbKey.key, info);
   }
   else {
@@ -86,9 +87,3 @@ function actionHandler(override, info) {
 }
 
 actionHandler();
-
-/*
-  * BONUS
-  * log everything, append and write to `log.txt`
-*/
-

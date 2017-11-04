@@ -2,7 +2,8 @@ var Spotify = require('node-spotify-api');
 var utils   = require('./utils');
 
 function handle(key, detail) {
-  var spotify = new Spotify(key);
+  var spotify = new Spotify(key),
+      param = {};
 
   spotify.search({ type: 'track', query: detail.trim(), limit : 1 }, function(err, data) {
     if (err) {
@@ -10,7 +11,7 @@ function handle(key, detail) {
     }
     else {
       var albums = data.tracks.items;
-
+      
       albums.forEach(function(album) {
         var artists = album.album.artists,
             previewURL = album.preview_url,

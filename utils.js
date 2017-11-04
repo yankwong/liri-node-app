@@ -2,10 +2,11 @@ var moment = require('moment');
 var fs = require("fs");
 
 function parseTime(str) {
-  var newMoment = moment(str, 'ddd MMM D HH:mm:ss Z GGGG');
+  var timeArr = str.split('+0000');
+  var newMoment = moment(timeArr[0], 'ddd MMM DD HH:mm:ss');
 
   if (newMoment.isValid()) {
-    return newMoment.format("ddd, h:mA");
+    return newMoment.subtract(7, 'hours').format("ddd, hh:mmA");
   }
   else {
     return str;
@@ -13,7 +14,7 @@ function parseTime(str) {
 }
 
 function writeLog(str) {
-  fs.appendFile("log.txt", str, function(err) {
+  fs.appendFile("log.txt", str + '\n', function(err) {
   });
 }
 

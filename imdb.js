@@ -3,7 +3,6 @@ var request = require('request');
 var utils   = require('./utils');
 
 function makeURL(key, title) {
-  console.log('wahast', 'http://www.omdbapi.com/?apikey=' + key + '&t=' + encodeURI(title) + '&type=movie');
   return 'http://www.omdbapi.com/?apikey=' + key + '&t=' + encodeURI(title) + '&type=movie';
 }
 
