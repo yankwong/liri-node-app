@@ -1,6 +1,4 @@
 // TODO: write api keys in comments (bootcampspot comments), gitignore keys
-// TODO: spotify default, make sure it's the default they mentioned
-// TODO: QA each modules
 var fs = require("fs");
 
 var utils   = require('./utils');
