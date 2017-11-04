@@ -24,7 +24,7 @@ function handle(key, detail) {
         });
 
         printResult += '---- Song Info ----\n';
-        printResult += 'song name: ' + detail.trim() + '\n';
+        printResult += 'song name: ' + album.name.trim() + '\n';
         printResult += 'artist(s): ' + artistNames.join(',') + '\n';
         printResult += 'album name: ' + albumName + '\n';
         printResult += 'preview url:\n' + (previewURL ? previewURL : 'N/A') + '\n';
