@@ -11,7 +11,7 @@ function handle(key, detail) {
     }
     else {
       var albums = data.tracks.items;
-      
+
       albums.forEach(function(album) {
         var artists = album.album.artists,
             previewURL = album.preview_url,
@@ -27,7 +27,7 @@ function handle(key, detail) {
         printResult += 'song name: ' + detail.trim() + '\n';
         printResult += 'artist(s): ' + artistNames.join(',') + '\n';
         printResult += 'album name: ' + albumName + '\n';
-        printResult += 'preview url:\n' + previewURL + '\n';
+        printResult += 'preview url:\n' + (previewURL ? previewURL : 'N/A') + '\n';
         printResult += '--------' + '\n';
 
         console.log(printResult);
